@@ -13,7 +13,7 @@ public class CustomerController {
 
     private final CustomerRepository customerRepository;
 
-    @Autowired // необязательно писать, влюбом случае spring внедрит
+    @Autowired
     public CustomerController(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
@@ -27,7 +27,7 @@ public class CustomerController {
     @GetMapping("/{id}")
     public String showOneCustomer(@PathVariable("id") long id, Model model){
         model.addAttribute("oneCustomer", customerRepository.findById(id));
-        return"client/one"; // располож и имя html кода
+        return"client/one";
     }
 
     @GetMapping("/new")
@@ -52,12 +52,9 @@ public class CustomerController {
     public String customerUpdate (@ModelAttribute("updateCustomer") Customer customer,
                                   @PathVariable ("id") long id){
         Customer customerToEdit = customerRepository.findById(id).get();
-        //customer.setId(customerToEdit.getId());
-        customer.setNameCustomer(customerToEdit.getNameCustomer());
-        customer.setAge(customerToEdit.getAge());
-        customerRepository.save(customer);
-        System.out.println(customerRepository.findById(id).get().getNameCustomer());
-        System.out.println(customer.getNameCustomer());
+        customerToEdit.setNameCustomer(customer.getNameCustomer());
+        customerToEdit.setAge(customer.getAge());
+        customerRepository.save(customerToEdit);
         return "redirect:/customer";
     }
 

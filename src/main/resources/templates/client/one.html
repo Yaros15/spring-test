@@ -14,8 +14,9 @@
 <form th:method="DELETE" th:action="@{/customer/{id}(id=${oneCustomer.get().getId()})}">
     <input type="submit" value="Delete customer"/>
 </form>
+<br/>
 
-<a href="/customer">back</a>
+<button onclick="document.location='/customer'">back</button>
 
 </body>
 </html>
