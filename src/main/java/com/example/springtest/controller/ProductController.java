@@ -22,37 +22,42 @@ public class ProductController {
         return "product/all";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public String showOneProduct (@PathVariable ("id") long id, Model model){
         model.addAttribute("oneProduct",productRepository.findById(id));
         return "product/one";
     }
 
-    @PostMapping("/new")
+    @GetMapping("new")
     public String newProduct (@ModelAttribute ("addProduct") Product product){
-        productRepository.save(product);
         return "product/new";
     }
 
-    @GetMapping("/{id}/edit")
+    @PostMapping()
+    public String createProduct (@ModelAttribute ("addProduct") Product product){
+        productRepository.save(product);
+        return "redirect:/product";
+    }
+
+    @GetMapping("{id}/edit")
     public String edit (Model model, @PathVariable ("id") long id){
         model.addAttribute("updateProduct", productRepository.findById(id));
         return "product/edit";
     }
 
-    @PatchMapping ("/{id}")
+    @PostMapping ("{id}")
     public String updateProduct (@ModelAttribute ("updateProduct") Product product,
                                  @PathVariable ("id") long id){
         Product productToEdit = productRepository.findById(id).get();
         productToEdit.setNameProduct(product.getNameProduct());
         productToEdit.setPrice(product.getPrice());
         productRepository.save(productToEdit);
-        return "redirect/product";
+        return "redirect:/product";
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     public String deleteProduct (@PathVariable ("id") long id){
         productRepository.deleteById(id);
-        return "redirect/product";
+        return "redirect:/product";
     }
 }

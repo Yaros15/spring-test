@@ -2,6 +2,7 @@ package com.example.springtest.model;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "customer")
@@ -10,11 +11,12 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     @Column(name = "name_customer")
     private String nameCustomer;
-
     private int age;
+    /*@OneToMany (mappedBy = "orderByCustomer")
+    private Set<Order> orders;*/
+
 
     public Customer(){  }
 

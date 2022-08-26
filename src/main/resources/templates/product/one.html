@@ -11,7 +11,7 @@
 <br/>
 <a th:href="@{/product/{id}/edit(id=${oneProduct.get().getId()})}">update customer</a>
 
-<form th:method="DELETE" th:action="@{/product/{id}(id=${oneProduct.get().getId()})}">
+<form th:method="POST" th:action="@{/product/{id}(id=${oneProduct.get().getId()})}">
     <input type="submit" value="Delete customer"/>
 </form>
 <br/>

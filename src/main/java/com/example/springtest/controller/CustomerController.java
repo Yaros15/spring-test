@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/customer")
+@RequestMapping("customer")
 public class CustomerController {
 
     private final CustomerRepository customerRepository;
@@ -24,13 +24,13 @@ public class CustomerController {
         return "client/all";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public String showOneCustomer(@PathVariable("id") long id, Model model){
         model.addAttribute("oneCustomer", customerRepository.findById(id));
         return"client/one";
     }
 
-    @GetMapping("/new")
+    @GetMapping("new")
     public String newCustomer(@ModelAttribute("addCustomer") Customer customer){
         return "client/new";
     }
@@ -42,13 +42,13 @@ public class CustomerController {
     }
 
 
-    @GetMapping("/{id}/edit")
+    @GetMapping("{id}/edit")
     public String edit (Model model, @PathVariable ("id") long id){
         model.addAttribute("updateCustomer", customerRepository.findById(id));
          return "client/edit";
     }
 
-    @PatchMapping ("/{id}")
+    @PostMapping ("{id}")
     public String customerUpdate (@ModelAttribute("updateCustomer") Customer customer,
                                   @PathVariable ("id") long id){
         Customer customerToEdit = customerRepository.findById(id).get();
@@ -58,7 +58,7 @@ public class CustomerController {
         return "redirect:/customer";
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping ("{id}")
     public String delete (@PathVariable ("id") long id){
         customerRepository.deleteById(id);
         return "redirect:/customer";
