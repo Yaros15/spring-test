@@ -10,23 +10,20 @@ public class Order {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private long id;
-    @Column (name = "customer_id")
-    private long customerId;
-    @Column (name="product_id")
-    private long productId;
-    /*@ManyToOne
+
+    @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn (name = "customer_id")
     private Customer orderByCustomer;
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn (name = "product_id")
-    private Product productFromTheOrder;*/
+    private Product productFromTheOrder;
 
     public Order (){ }
 
-    public Order (long id, long customerId, long productId){
+    public Order (long id, Customer orderByCustomer, Product productFromTheOrder){
         this.id=id;
-        this.customerId=customerId;
-        this.productId=productId;
+        this.orderByCustomer = orderByCustomer;
+        this.productFromTheOrder = productFromTheOrder;
     }
 
     public long getId() {
@@ -37,23 +34,7 @@ public class Order {
         this.id = id;
     }
 
-    public long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(long customerId) {
-        this.customerId = customerId;
-    }
-
-    public long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(long productId) {
-        this.productId = productId;
-    }
-
-    /*public Customer getOrderByCustomer() {
+    public Customer getOrderByCustomer() {
         return orderByCustomer;
     }
 
@@ -67,5 +48,5 @@ public class Order {
 
     public void setProductFromTheOrder(Product productFromTheOrder) {
         this.productFromTheOrder = productFromTheOrder;
-    }*/
+    }
 }

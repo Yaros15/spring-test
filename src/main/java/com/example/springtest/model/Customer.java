@@ -14,8 +14,9 @@ public class Customer {
     @Column(name = "name_customer")
     private String nameCustomer;
     private int age;
-    /*@OneToMany (mappedBy = "orderByCustomer")
-    private Set<Order> orders;*/
+
+    @OneToMany (mappedBy = "orderByCustomer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Order> orders;
 
 
     public Customer(){  }
@@ -47,5 +48,13 @@ public class Customer {
 
     public void setAge (int age){
         this.age = age;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All order</title>
+</head>
+<body>
+
+<table border="1" width="600" >
+    <thead>
+    <tr>
+        <th>Customer name</th>
+        <th>Product name</th>
+        <th>Product price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="orders : ${allOrder}">
+    <td th:text="${orders.getOrderByCustomer().getNameCustomer()}">Customer</td>
+    <td th:text="${orders.getProductFromTheOrder().getNameProduct()}">product</td>
+    <td th:text="${orders.getProductFromTheOrder().getPrice()}">price</td>
+    </tr>
+    </tbody>
+</table>
+
+<br/>
+<button onclick="document.location='/'">back</button>
+</body>
+</html>
