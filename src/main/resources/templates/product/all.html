@@ -1,19 +1,56 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th = "http://thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>All product</title>
-</head>
-<body>
+<div th:insert="fragments/main.html :: heade"></div>
+<div class="container mt-5">
 
-<div th:each="product : ${allProduct}">
-    <a th:href="@{/product/{id}(id=${product.getId()})}" th:text="${product.getNameProduct()}">people</a>
-</div>
+    <div class="form-row mt-3">
+        <div class="form-group col-md-6">
+    <form th:method="get" th:action="@{/product}" class="form-inline">
+        <input type="text" name="filter" class="form-control" th:value="${filter}" placeholder="Введите название"/>
+        <button type="submit" class="btn btn-primary ml-2">Найти</button>
+    </form>
+        </div>
+    </div>
+
+    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        Добавить продукт
+    </a>
+    <div class="collapse" id="collapseExample">
+        <div class="form-group mt-3">
+        <form th:method="post" th:action="@{/product/new}">
+            <div class="form-group col-md-6">
+            <input type="text" class="form-control" th:name="nameProduct" placeholder="Введите название" />
+            </div>
+                <div class="form-group col-md-2">
+            <input type="number" class="form-control" th:name="price" placeholder="Введите цену" />
+                </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Добавить</button>
+                    </div>
+        </form>
+        </div>
+    </div>
+
+    <h2>Список продуктов</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Продукт</th>
+            <th>Цена</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${allProduct}">
+            <td th:text="${product.getNameProduct()}">Продукт</td>
+            <td th:text="${product.getPrice()}">Цена</td>
+            <td><a th:href="@{/product/{id}(id=${product.getId()})}">Изменить</a></td>
+        </tr>
+        </tbody>
+    </table>
 
 <br/>
 
-<button onclick="document.location='/product/new'">add product</button>
-<button onclick="document.location='/'">back</button>
+<button onclick="document.location='/'">Назад</button>
 
-</body>
-</html>
+</div>
+<div th:insert="fragments/main.html :: footer"></div>

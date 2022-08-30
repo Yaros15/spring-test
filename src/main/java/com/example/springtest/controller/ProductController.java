@@ -17,30 +17,32 @@ public class ProductController {
     }
 
     @GetMapping()
-    public String productsAll (Model model){
-        model.addAttribute("allProduct", productRepository.findAll());
+    public String productsAll (@RequestParam(required = false, defaultValue = "") String filter,
+                               Model model){
+        Iterable <Product> allProduct = productRepository.findAll();
+
+        if (filter != null && !filter.isEmpty()) {
+            allProduct = productRepository.findByNameProduct(filter);
+        } else {
+            allProduct = productRepository.findAll();
+        }
+
+        model.addAttribute("allProduct", allProduct);
+        model.addAttribute("filter", filter);
+
         return "product/all";
     }
 
-    @GetMapping("{id}")
-    public String showOneProduct (@PathVariable ("id") long id, Model model){
-        model.addAttribute("oneProduct",productRepository.findById(id));
-        return "product/one";
-    }
-
-    @GetMapping("new")
-    public String newProduct (@ModelAttribute ("addProduct") Product product){
-        return "product/new";
-    }
-
-    @PostMapping()
-    public String createProduct (@ModelAttribute ("addProduct") Product product){
-        productRepository.save(product);
+    @PostMapping("new")
+    public String createProduct (@RequestParam String nameProduct,
+                                 @RequestParam double price){
+        Product newProduct = new Product(nameProduct, price);
+        productRepository.save(newProduct);
         return "redirect:/product";
     }
 
-    @GetMapping("{id}/edit")
-    public String edit (Model model, @PathVariable ("id") long id){
+    @GetMapping("{id}")
+    public String edit (@PathVariable ("id") long id, Model model){
         model.addAttribute("updateProduct", productRepository.findById(id));
         return "product/edit";
     }
@@ -52,12 +54,6 @@ public class ProductController {
         productToEdit.setNameProduct(product.getNameProduct());
         productToEdit.setPrice(product.getPrice());
         productRepository.save(productToEdit);
-        return "redirect:/product";
-    }
-
-    @DeleteMapping("{id}")
-    public String deleteProduct (@PathVariable ("id") long id){
-        productRepository.deleteById(id);
         return "redirect:/product";
     }
 }

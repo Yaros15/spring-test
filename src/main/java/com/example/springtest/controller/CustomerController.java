@@ -19,31 +19,31 @@ public class CustomerController {
     }
 
     @GetMapping()
-    public String customersAllView (Model model){
-        model.addAttribute("allCustomer", customerRepository.findAll());
+    public String customersAllView (@RequestParam(required = false, defaultValue = "") String filter,
+                                    Model model){
+        Iterable <Customer> allCustomer = customerRepository.findAll();
+
+        if (filter != null && !filter.isEmpty()) {
+            allCustomer = customerRepository.findByNameCustomer(filter);
+        } else {
+            allCustomer = customerRepository.findAll();
+        }
+
+        model.addAttribute("allCustomer", allCustomer);
+        model.addAttribute("filter", filter);
         return "client/all";
     }
 
-    @GetMapping("{id}")
-    public String showOneCustomer(@PathVariable("id") long id, Model model){
-        model.addAttribute("oneCustomer", customerRepository.findById(id));
-        return"client/one";
-    }
-
-    @GetMapping("new")
-    public String newCustomer(@ModelAttribute("addCustomer") Customer customer){
-        return "client/new";
-    }
-
-    @PostMapping()
-    public String createCustomer ( @ModelAttribute("addCustomer") Customer customer){
-        customerRepository.save(customer);
+    @PostMapping("new")
+    public String createCustomer (@RequestParam String nameCustomer,
+                                  @RequestParam int age){
+        Customer newCustomer = new Customer(nameCustomer, age);
+        customerRepository.save(newCustomer);
         return "redirect:/customer";
     }
 
-
-    @GetMapping("{id}/edit")
-    public String edit (Model model, @PathVariable ("id") long id){
+    @GetMapping("{id}")
+    public String edit (@PathVariable ("id") long id, Model model){
         model.addAttribute("updateCustomer", customerRepository.findById(id));
          return "client/edit";
     }
@@ -55,12 +55,6 @@ public class CustomerController {
         customerToEdit.setNameCustomer(customer.getNameCustomer());
         customerToEdit.setAge(customer.getAge());
         customerRepository.save(customerToEdit);
-        return "redirect:/customer";
-    }
-
-    @DeleteMapping ("{id}")
-    public String delete (@PathVariable ("id") long id){
-        customerRepository.deleteById(id);
         return "redirect:/customer";
     }
 }

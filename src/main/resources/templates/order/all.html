@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>All order</title>
-</head>
-<body>
+<div th:insert="fragments/main.html :: heade"></div>
+<div class="container mt-5">
 
 <table border="1" width="600" >
     <thead>
@@ -15,15 +10,16 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="orders : ${allOrder}">
-    <td th:text="${orders.getOrderByCustomer().getNameCustomer()}">Customer</td>
-    <td th:text="${orders.getProductFromTheOrder().getNameProduct()}">product</td>
-    <td th:text="${orders.getProductFromTheOrder().getPrice()}">price</td>
+    <tr th:each="order : ${allOrder}">
+    <td th:text="${order.getOrderByCustomer().getNameCustomer()}">Клиент</td>
+    <td th:text="${order.getProductFromTheOrder().getNameProduct()}">Продукт</td>
+    <td th:text="${order.getProductFromTheOrder().getPrice()}">Цена</td>
     </tr>
     </tbody>
 </table>
 
 <br/>
-<button onclick="document.location='/'">back</button>
-</body>
-</html>
+<button onclick="document.location='/'">Назад</button>
+
+</div>
+<div th:insert="fragments/main.html :: footer"></div>

@@ -1,0 +1,14 @@
+<div th:insert="fragments/main.html :: heade"></div>
+<div class="container mt-5">
+
+    <div> Авторизация </div>
+
+    <div th:insert="fragments/login.html :: login (loginParam ='/login')"></div>
+
+    <button onclick="document.location='/registration'">Зарегистрироваться</button>
+    <br/>
+    <br/>
+    <button onclick="document.location='/'">Назад</button>
+
+</div>
+<div th:insert="fragments/main.html :: footer"></div>

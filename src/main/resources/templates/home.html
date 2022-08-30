@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
-<body>
-<h1>Welcome to data base</h1>
+<div th:insert="fragments/main.html :: heade"></div>
+<div class="container mt-5">
 
-<button onclick="document.location='/customer'">Customer</button>
-<button onclick="document.location='/product'">Product</button>
-<button onclick="document.location='/order'">Order</button>
-</body>
-</html>
+    <h1>Добро пожаловать в базу данных</h1>
+
+</div>
+<div th:insert="fragments/main.html :: footer"></div>
