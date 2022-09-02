@@ -5,10 +5,9 @@
 
     <div th:insert="fragments/login.html :: login (loginParam ='/login')"></div>
 
-    <button onclick="document.location='/registration'">Зарегистрироваться</button>
+    <a class="btn btn-primary" href="/registration" role="button">Зарегистрироваться</a>
     <br/>
-    <br/>
-    <button onclick="document.location='/'">Назад</button>
+    <a class="btn btn-primary" href="/" role="button">Назад</a>
 
 </div>
 <div th:insert="fragments/main.html :: footer"></div>
