@@ -15,7 +15,7 @@ public class Customer {
     private String nameCustomer;
     private int age;
 
-    @OneToMany (mappedBy = "orderByCustomer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany (mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Order> orders;
 
 

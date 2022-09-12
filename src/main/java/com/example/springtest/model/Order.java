@@ -2,6 +2,7 @@ package com.example.springtest.model;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table (name = "orders")
@@ -13,17 +14,17 @@ public class Order {
 
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn (name = "customer_id")
-    private Customer orderByCustomer;
-    @ManyToOne (fetch = FetchType.EAGER)
-    @JoinColumn (name = "product_id")
-    private Product productFromTheOrder;
+    private Customer customer;
+
+    @OneToMany (fetch = FetchType.EAGER)
+    private Set<Product> products;
 
     public Order (){ }
 
-    public Order (long id, Customer orderByCustomer, Product productFromTheOrder){
+    public Order (long id, Customer customer, Set<Product> products){
         this.id=id;
-        this.orderByCustomer = orderByCustomer;
-        this.productFromTheOrder = productFromTheOrder;
+        this.customer = customer;
+        this.products = products;
     }
 
     public long getId() {
@@ -34,19 +35,19 @@ public class Order {
         this.id = id;
     }
 
-    public Customer getOrderByCustomer() {
-        return orderByCustomer;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setOrderByCustomer(Customer orderByCustomer) {
-        this.orderByCustomer = orderByCustomer;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public Product getProductFromTheOrder() {
-        return productFromTheOrder;
+    public Set<Product> getProducts() {
+        return products;
     }
 
-    public void setProductFromTheOrder(Product productFromTheOrder) {
-        this.productFromTheOrder = productFromTheOrder;
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 }

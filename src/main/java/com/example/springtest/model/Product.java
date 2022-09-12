@@ -13,8 +13,6 @@ public class Product {
     @Column (name = "name_product")
     private String nameProduct;
     private double price;
-    @OneToMany (mappedBy = "productFromTheOrder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Order> orders;
 
 
     public Product() { }
@@ -47,13 +45,5 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public Set<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
     }
 }

@@ -1,7 +1,7 @@
 package com.example.springtest.model;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+/*import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;*/
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table (name="usr")
-public class User implements UserDetails {
+public class User {
 
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
@@ -66,7 +66,7 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    @Override
+/*    @Override
     public boolean isAccountNonExpired() {
         return true;
     }
@@ -89,5 +89,5 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
-    }
+    }*/
 }

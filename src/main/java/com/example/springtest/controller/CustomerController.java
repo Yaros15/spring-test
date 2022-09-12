@@ -24,7 +24,7 @@ public class CustomerController {
         Iterable <Customer> allCustomer = customerRepository.findAll();
 
         if (filter != null && !filter.isEmpty()) {
-            allCustomer = customerRepository.findByNameCustomer(filter);
+            allCustomer = customerRepository.findByNameCustomerContaining(filter);
         } else {
             allCustomer = customerRepository.findAll();
         }
